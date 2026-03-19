@@ -1,0 +1,10 @@
+# Environment variables - never push these!
+.env
+
+# Virtual environment - no need to push this
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
