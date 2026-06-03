@@ -7,4 +7,5 @@ venv/
 # Python cache files
 __pycache__/
 *.pyc
-*.pyo
+*.pyo__pycache__/ 
+*.pyc 
