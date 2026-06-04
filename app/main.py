@@ -34,6 +34,7 @@ app.include_router(auth.router)
 app.include_router(bookings.router)
 app.include_router(recommendations.router)
 app.include_router(opportunities.router)
+app.include_router(admin.router)
 
 def send_daily_reminders():
     print("⏰ Checking for tomorrow's bookings...")
