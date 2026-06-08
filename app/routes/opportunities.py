@@ -31,6 +31,21 @@ def create_opportunity(opportunity: OpportunityCreate, token: str, db: Session =
     db.refresh(new_opportunity)
     return new_opportunity
 
+
+# 🎓 PUT - admin edits an existing opportunity
+@router.put("/{opportunity_id}", response_model=OpportunityResponse)
+def update_opportunity(opportunity_id: int, opportunity: OpportunityCreate, token: str, db: Session = Depends(get_db)):
+    if token != "admin-token-volunteer-gigs":
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    existing = db.query(Opportunity).filter(Opportunity.id == opportunity_id).first()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Opportunity not found")
+    for key, value in opportunity.model_dump().items():
+        setattr(existing, key, value)
+    db.commit()
+    db.refresh(existing)
+    return existing
+
 # 🎓 DELETE - admin deletes opportunity
 @router.delete("/{opportunity_id}")
 def delete_opportunity(opportunity_id: int, token: str, db: Session = Depends(get_db)):
